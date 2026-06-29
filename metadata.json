@@ -1,0 +1,6 @@
+{
+  "name": "Billed App",
+  "description": "Industrial billing and inventory management system with HR and demand modules.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

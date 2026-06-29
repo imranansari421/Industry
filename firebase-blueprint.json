@@ -1,0 +1,221 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "mobile": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "user", "guest", "employee"] },
+        "designation": { "type": "string" },
+        "gender": { "type": "string", "enum": ["Male", "Female", "Other"] },
+        "address": { "type": "string" }
+      },
+      "required": ["uid", "name", "email"]
+    },
+    "Employee": {
+      "title": "Employee",
+      "description": "Employee information for HR management",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "mobile": { "type": "string" },
+        "email": { "type": "string" },
+        "designation": { "type": "string" },
+        "address": { "type": "string" },
+        "doj": { "type": "string", "format": "date" },
+        "photoUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "left"] },
+        "doe": { "type": "string", "format": "date" },
+        "dob": { "type": "string", "format": "date" },
+        "pfNo": { "type": "string" },
+        "esicNo": { "type": "string" }
+      },
+      "required": ["name", "mobile", "email", "designation", "doj", "status"]
+    },
+    "Part": {
+      "title": "Part",
+      "description": "Inventory item in the part catalog",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "plNo": { "type": "string" },
+        "description": { "type": "string" },
+        "partNo": { "type": "string" },
+        "rate": { "type": "number" },
+        "stock": { "type": "number" },
+        "totalValue": { "type": "number" },
+        "location": { "type": "string" }
+      },
+      "required": ["plNo", "description", "partNo", "rate", "stock"]
+    },
+    "Demand": {
+      "title": "Demand",
+      "description": "Demand request for items",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "plNo": { "type": "string" },
+        "qty": { "type": "number" },
+        "date": { "type": "string", "format": "date" },
+        "status": { "type": "string", "enum": ["pending", "completed", "rejected"] },
+        "receivedQty": { "type": "number" },
+        "receivedDate": { "type": "string", "format": "date" }
+      },
+      "required": ["plNo", "qty", "date", "status"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Inward/Outward transaction records",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "partId": { "type": "string" },
+        "type": { "type": "string", "enum": ["received", "issued", "old_stock"] },
+        "qty": { "type": "number" },
+        "date": { "type": "string", "format": "date" },
+        "receiverName": { "type": "string" },
+        "remarks": { "type": "string" },
+        "details": { "type": "string" }
+      },
+      "required": ["partId", "type", "qty", "date"]
+    },
+    "ProfileRequest": {
+      "title": "Profile Request",
+      "description": "Employee profile change request pending admin approval",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "employeeId": { "type": "string" },
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "mobile": { "type": "string" },
+        "designation": { "type": "string" },
+        "gender": { "type": "string", "enum": ["Male", "Female", "Other"] },
+        "address": { "type": "string" },
+        "dob": { "type": "string", "format": "date" },
+        "pfNo": { "type": "string" },
+        "esicNo": { "type": "string" },
+        "doj": { "type": "string", "format": "date" },
+        "photoUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "createdAt": { "type": "string" },
+        "remarks": { "type": "string" }
+      },
+      "required": ["employeeId", "uid", "name", "email", "mobile", "designation", "status", "createdAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "User notification",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "uid": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "read": { "type": "boolean" },
+        "type": { "type": "string" },
+        "targetEmail": { "type": "string" },
+        "target": { "type": "string" },
+        "parentId": { "type": "string" }
+      },
+      "required": ["title", "message", "createdAt", "read"]
+    },
+    "SupportMessage": {
+      "title": "Support Message",
+      "description": "Message/ticket sent to admin and replies",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "employeeId": { "type": "string" },
+        "name": { "type": "string" },
+        "pfNo": { "type": "string" },
+        "email": { "type": "string" },
+        "mobile": { "type": "string" },
+        "designation": { "type": "string" },
+        "message": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["open", "responded", "closed", "pending", "resolved"] },
+        "createdAt": { "type": "string" },
+        "replies": { "type": "array" }
+      },
+      "required": ["employeeId", "name", "message", "status", "createdAt"]
+    },
+    "Folder": {
+      "title": "Folder",
+      "description": "Task Folder",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdByName": { "type": "string" }
+      },
+      "required": ["name", "createdAt", "createdBy"]
+    },
+    "TodoItem": {
+      "title": "TodoItem",
+      "description": "To-Do List Task Item inside a Folder",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "folderId": { "type": "string" },
+        "task": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdByName": { "type": "string" }
+      },
+      "required": ["folderId", "task", "completed", "createdAt", "createdBy"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/employees/{employeeId}": {
+      "schema": "Employee",
+      "description": "Employee records"
+    },
+    "/parts/{partId}": {
+      "schema": "Part",
+      "description": "Inventory parts"
+    },
+    "/demands/{demandId}": {
+      "schema": "Demand",
+      "description": "Demand requests"
+    },
+    "/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Transaction history"
+    },
+    "/profile_requests/{requestId}": {
+      "schema": "ProfileRequest",
+      "description": "Profile update request collection"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "User notifications"
+    },
+    "/messages/{messageId}": {
+      "schema": "SupportMessage",
+      "description": "Support messages/reset requests from employees to admin"
+    },
+    "/folders/{folderId}": {
+      "schema": "Folder",
+      "description": "Folders for task checklists"
+    },
+    "/todos/{todoId}": {
+      "schema": "TodoItem",
+      "description": "Todo/task checklist items linked to folders"
+    }
+  }
+}
